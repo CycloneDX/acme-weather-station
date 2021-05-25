@@ -7,7 +7,7 @@ compliant. It _should_ support most basic requests. If handling is
 missing for any required functionality feel free to raise an issue, or,
 even better, create a pull request :)
 
-It supports BOM discovery and access via a well known URI `/.well-known/sbom`.
+It supports BOM discovery and access via the well known URIs `/.well-known/sbom` and `/.well-known/sbom/base`.
 
 **Please note:** there is an existing internet draft [draft-ietf-opsawg-sbom-access](https://datatracker.ietf.org/doc/html/draft-lear-opsawg-sbom-access-00).
 At present, this service simply responds with a redirect to the BOM. This
