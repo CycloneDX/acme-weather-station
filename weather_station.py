@@ -33,7 +33,7 @@ def get(url):
         else:
             print('Error receiving data', url.getcode())
     except urllib.error.HTTPError as exc:
-        print('Error receiving data, HTTP status code', exc.code, exc.msg)
+        print('Error receiving data, HTTP status code', exc.code)
 
 
 def update_weather():
@@ -134,7 +134,7 @@ class HTTPHandler(BaseHTTPRequestHandler):
         self.send_response(406, "Supported media types are " + ", ".join(media_type_extensions.keys()))
 
     def do_GET(self):
-        if self.path == '/.well-known/sbom':
+        if self.path == '/.well-known/sbom' or self.path == '/.well-known/sbom/base':
             self.send_response(307)
             self.send_header("Location", "/bom")
             self.end_headers()
@@ -165,7 +165,7 @@ class HTTPHandler(BaseHTTPRequestHandler):
             self.wfile.write(json.dumps(cached_weather).encode('UTF-8'))
         else:
             self.send_response(404)
-            self.wfile.write('Hmmm.... maybe you\'re looking for "/.well-known/sbom", "/bom" or "/weather"?'.encode('UTF-8'))
+            self.wfile.write('Hmmm.... maybe you\'re looking for "/.well-known/sbom", "/.well-known/sbom/base", "/bom" or "/weather"?'.encode('UTF-8'))
 
 
 def run(server_class=HTTPServer, handler_class=HTTPHandler):
