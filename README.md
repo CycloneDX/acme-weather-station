@@ -32,8 +32,12 @@ be modified to change this.
 
 ## Supported Media Types
 
-CycloneDX XML and JSON media types are supported for BOM retrieval: `application/vnd.cyclonedx+xml` and
-`application/vnd.cyclonedx+json`.
+CycloneDX XML, JSON and Protobuf media types are supported for BOM retrieval:
+
+- `application/vnd.cyclonedx+xml`
+- `application/vnd.cyclonedx+json`
+- `application/x.vnd.cyclonedx+protobuf`
+
 The version parameter is also supported to specify what CycloneDX specification
 version you want to retrieve. By default, the latest supported version will be
 returned.

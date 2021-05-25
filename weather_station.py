@@ -16,9 +16,10 @@ MEDIA_TYPE_JSON = 'application/vnd.cyclonedx+json'
 MEDIA_TYPE_PROTOBUF = 'application/x.vnd.cyclonedx+protobuf'
 MEDIA_TYPE_SPDX = 'text/spdx'
 
-media_type_extensions = {
+media_type_file_extensions = {
     MEDIA_TYPE_XML: 'xml',
     MEDIA_TYPE_JSON: 'json',
+    MEDIA_TYPE_PROTOBUF: 'bin',
     MEDIA_TYPE_SPDX: 'spdx',
 }
 
@@ -125,13 +126,13 @@ class HTTPHandler(BaseHTTPRequestHandler):
                 if parameter_name.strip() == 'version':
                     version = parameter_value.strip()
 
-            if media_type in media_type_extensions:
+            if media_type in media_type_file_extensions:
                 return media_type, version
             elif media_type == '*/*':
                 return MEDIA_TYPE_JSON, '1.3'
 
         print('Unable to negotiate content type')
-        self.send_response(406, "Supported media types are " + ", ".join(media_type_extensions.keys()))
+        self.send_response(406, "Supported media types are " + ", ".join(media_type_file_extensions.keys()))
 
     def do_GET(self):
         if self.path == '/.well-known/sbom' or self.path == '/.well-known/sbom/base':
@@ -144,7 +145,7 @@ class HTTPHandler(BaseHTTPRequestHandler):
                 version = '2.2'
             elif version is None:
                 version = '1.3'
-            filename = 'bom-' + version + '.' + media_type_extensions[media_type]
+            filename = 'bom-' + version + '.' + media_type_file_extensions[media_type]
             print('Returning:', filename)
 
             content_type = media_type
